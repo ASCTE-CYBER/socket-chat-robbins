@@ -1,0 +1,8 @@
+*.pyc
+.DS_Store
+env
+venv
+*.code-workspace
+.vscode
+temp
+tmp
