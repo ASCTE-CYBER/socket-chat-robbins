@@ -30,7 +30,7 @@ def client() -> None:
     '''
 
     SERVER_ADDRESS = '127.0.0.1'
-    SERVER_PORT = 12000
+    SERVER_PORT = 16572
 
     try:
         # Instantiate socket and start connection with server
