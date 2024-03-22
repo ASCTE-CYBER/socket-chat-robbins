@@ -1,7 +1,16 @@
-import socket, threading
+import socket
+import threading
+import getpass
 
 # Global variable that mantain client's connections
 connections = []
+
+def set_port():
+    '''
+        Get port number from user.
+    '''
+    port_number = int(getpass.getpass('Server TCP port number: '))
+    return port_number
 
 def handle_user_connection(connection: socket.socket, address: str) -> None:
     '''
@@ -18,7 +27,7 @@ def handle_user_connection(connection: socket.socket, address: str) -> None:
             if msg:
                 # Log message sent by user
                 print(f'{address[0]}:{address[1]} - {msg.decode()}')
-                
+
                 # Build message format and broadcast to users connected on server
                 msg_to_send = f'From {address[0]}:{address[1]} - {msg.decode()}'
                 broadcast(msg_to_send, connection)
@@ -71,8 +80,8 @@ def server() -> None:
         to handle their messages
     '''
 
-    LISTENING_PORT = 15246
-    
+    LISTENING_PORT = set_port()
+
     try:
         # Create server and specifying that it can only handle 4 connections by time!
         socket_instance = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -80,7 +89,7 @@ def server() -> None:
         socket_instance.listen(4)
 
         print('Server running!')
-        
+
         while True:
 
             # Accept client connection
