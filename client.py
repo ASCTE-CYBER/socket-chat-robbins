@@ -1,4 +1,16 @@
-import socket, threading
+import socket
+import threading
+import getpass
+
+def get_server_info() -> tuple:
+    '''
+        Get IP address and port number from user.
+    '''
+
+    ip_address = getpass.getpass('Server IP adress: ')
+    port_number = int(getpass.getpass('Server TCP port number: '))
+
+    return (ip_address, port_number)
 
 def handle_messages(connection: socket.socket):
     '''
@@ -25,12 +37,13 @@ def handle_messages(connection: socket.socket):
 
 def client() -> None:
     '''
-        Main process that start client connection to the server 
+        Main process that start client connection to the server
         and handle it's input messages
     '''
 
-    SERVER_ADDRESS = '127.0.0.1'
-    SERVER_PORT = 16572
+    # Get server address and port number
+
+    SERVER_ADDRESS, SERVER_PORT = get_server_info()
 
     try:
         # Instantiate socket and start connection with server
